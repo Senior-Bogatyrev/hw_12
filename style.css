@@ -53,7 +53,6 @@ label{
     border: 1px solid black;
     border-radius: 12px;
 }
-
 .info{
     width: 210px;
     height: 140px;
@@ -61,11 +60,44 @@ label{
     text-align: center;
 }
 #miniPoster{
-    width: 160px;
-    height: 180px;
+    min-width: 160px;
+    min-height: 180px;
+    max-width: 160px;
+    max-height: 180px;
     border-radius: 9px;
 }
 .details{
     margin-top: 10px;
     width: 80px;
+}
+#detailsView{
+    width: 600px;
+    height: 500px;
+    border: 1px solid burlywood;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#fullPoster{
+    width: 300px;
+    height: 480px;
+    border-radius: 12px;
+}
+.filmInfo{
+    width: 260px;
+    height: 480px;
+    margin-left: 20px;
+}
+.line{
+    min-width: 260px;
+    max-width: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.headers,.items{
+    max-width: 130px;
+    min-width: 130px;
+    margin-bottom: 10px;
 }
