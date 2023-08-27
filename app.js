@@ -8,7 +8,7 @@ const loadData = function(search, cb, page = 1) {
     let url = `https://api.kinopoisk.dev/v1.3/movie?&page=${page}&limit=10&name=` + search;
     request.open('GET', url);
     // ВВЕДИТЕ СВОЙ API-KEY
-    request.setRequestHeader('X-API-KEY', 'M1QDKK9-G5J4BQE-KY3YZXV-QWR55RP');
+    request.setRequestHeader('X-API-KEY', 'ВВЕДИТЕ СВОЙ API-KEY');
     request.responseType = 'json';
     request.addEventListener(`load`, cb);
     request.send();
