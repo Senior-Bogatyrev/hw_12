@@ -3,9 +3,9 @@ onFilms.style.visibility="hidden";
 let onInfo = document.getElementById('onInfo');
 onInfo.style.visibility="hidden";
 
-const loadData = function(search, cb) {
+const loadData = function(search, cb, page = 1) {
     let request = new XMLHttpRequest();
-    let url = 'https://api.kinopoisk.dev/v1.3/movie?&page=1&limit=10&name=' + search;
+    let url = `https://api.kinopoisk.dev/v1.3/movie?&page=${page}&limit=10&name=` + search;
     request.open('GET', url);
     // ВВЕДИТЕ СВОЙ API-KEY
     request.setRequestHeader('X-API-KEY', 'ВВЕДИТЕ СВОЙ API-KEY');
@@ -17,13 +17,15 @@ const loadData = function(search, cb) {
 let searchBtn = document.getElementById('searchBtn');
 let films = document.getElementById('films');
 let detailsView = document.getElementById('detailsView');
+let pages
 
-function searcher(){
-    let search = document.getElementById('title').value;
-    loadData(search, function(evt){
+function view(evt){
+    films.innerHTML = '';
+    const result = evt.currentTarget.response;
+    if(result['total'] == 0){
+        films.innerHTML = '<h1 style="color: red;">ФИЛЬМ НЕ НАЙДЕН!</h1>'
+    }else{
         onFilms.style.visibility = '';
-        films.innerHTML = '';
-        const result = evt.currentTarget.response;
         for (let i = 0; i < result['docs'].length; i++) {
             if (result['docs'][i]['poster']['url'] == null){
                 films.innerHTML += `<div class="film"><div class="card"><div class="poster"><img src="https://user-images.githubusercontent.com/134081634/263476846-951c3cc2-361d-4d13-a3c1-ae1e4df9657b.jpg" alt="poster" id="miniPoster"></div><div class="info"><h3 id="name">${result['docs'][i]['name']}</h3><br><h3 id="year">${result['docs'][i]['year']}</h3><button class="details" id="${i}">Details</button></div></div></div>`;
@@ -35,6 +37,9 @@ function searcher(){
         btns.forEach(function(btn) {
             btn.addEventListener('click', function(e) {
             if (e.target.id == "searchBtn"){
+                return;
+            }
+            if (e.target.className == "pagBtn"){
                 return;
             }
             let x = Number(e.target.id);
@@ -56,5 +61,30 @@ function searcher(){
             }
             })
         })
-    })
+    }
+    pages = Number(result['pages']);
+}
+
+let search
+function searcher(){
+    onInfo.style.visibility="hidden";
+    detailsView.innerHTML = '';
+    search = document.getElementById('title').value;
+    let pagination = document.getElementById('pagination');
+    loadData(search, function(evt){
+        view(evt)
+        pagination.innerHTML = ''
+        for (let i = 1; i <= pages; i++){
+            pagination.innerHTML += `<button onclick="paginationView(this)" class="pagBtn">${i}</button>`
+        } 
+    })   
+}
+
+function paginationView(y){
+    onInfo.style.visibility="hidden";
+    detailsView.innerHTML = '';
+    let numPageBtn = Number(y.innerHTML)
+    loadData(search, function(evt){
+        view(evt)
+    },numPageBtn)
 }
