@@ -71,9 +71,8 @@ label{
     width: 80px;
 }
 #detailsView{
-    width: 600px;
+    width: 730px;
     height: 500px;
-    border: 1px solid burlywood;
     border-radius: 15px;
     display: flex;
     justify-content: center;
@@ -85,19 +84,24 @@ label{
     border-radius: 12px;
 }
 .filmInfo{
-    width: 260px;
+    width: 430px;
     height: 480px;
     margin-left: 20px;
 }
 .line{
-    min-width: 260px;
-    max-width: 260px;
+    min-width: 430px;
+    max-width: 430px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.headers,.items{
+.headers{
     max-width: 130px;
     min-width: 130px;
+    margin-bottom: 10px;
+}
+.items{
+    max-width: 300px;
+    min-width: 300px;
     margin-bottom: 10px;
 }
